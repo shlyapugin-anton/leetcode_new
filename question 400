@@ -1,0 +1,77 @@
+https://leetcode.com/problems/nth-digit/description/
+
+python
+
+class Solution:
+
+    def findNthDigit(self, n):
+        
+        listOfDigitsInNumbers = [i + 1 for i in range(10)]
+        for i in listOfDigitsInNumbers[:-1]:
+            listOfDigitsInNumbers[i] = listOfDigitsInNumbers[i - 1] + 9 * i * 10 ** (i - 1)
+
+        recovery_num = self.recoveryNumber(n)
+        position_of_zero = self.findPositionOfNumber(recovery_num)
+        shift = n - position_of_zero
+        recovery_num = str(recovery_num)
+        return int(recovery_num[shift])
+        
+    def findInterval(self, n):
+        listOfDigitsInNumbers = [i + 1 for i in range(10)]
+        for i in listOfDigitsInNumbers[:-1]:
+            listOfDigitsInNumbers[i] = listOfDigitsInNumbers[i - 1] + 9 * i * 10 ** (i - 1)
+        i = 0
+        while n >= listOfDigitsInNumbers[i]:
+            i += 1
+        return i
+
+    def high_degree(self, n):
+        result = 0
+        while n >= 1:
+            result += 1
+            n = int(n / 10)
+
+        return result
+
+    def recoveryNumber(self, n):
+        listOfDigitsInNumbers = [i + 1 for i in range(10)]
+        for i in listOfDigitsInNumbers[:-1]:
+            listOfDigitsInNumbers[i] = listOfDigitsInNumbers[i - 1] + 9 * i * 10 ** (i - 1)
+        higher_degree = self.findInterval(n)
+        result = 0
+
+        loop = higher_degree * 10 ** (higher_degree - 1)
+        higher_digit = (n - listOfDigitsInNumbers[higher_degree - 1]) / loop + 1
+        higher_digit = int(higher_digit)
+        result += 10 ** (higher_degree - 1) * higher_digit
+
+        n = (n - (higher_digit - 1) * loop - listOfDigitsInNumbers[higher_degree - 1]) / higher_degree
+        n = int(n)
+        
+        result += n
+
+        return result
+
+
+    def findPositionOfNumber(self, n):
+        listOfDigitsInNumbers = [i + 1 for i in range(10)]
+        for i in listOfDigitsInNumbers[:-1]:
+            listOfDigitsInNumbers[i] = listOfDigitsInNumbers[i - 1] + 9 * i * 10 ** (i - 1)
+        
+        
+        result = 0
+        higher_degree = self.high_degree(n)
+
+        higher_digit = int(n / 10 ** (higher_degree - 1))
+
+        loop = (higher_digit - 1) * 10 ** (higher_degree - 1)
+
+        result = result + (listOfDigitsInNumbers[higher_degree - 1] + loop * higher_degree)
+        n = n - 10 ** (higher_degree - 1) * higher_digit
+        
+        result += n * higher_degree
+
+        return result
+
+
+    
