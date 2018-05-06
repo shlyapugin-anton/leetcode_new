@@ -1,0 +1,36 @@
+https://leetcode.com/problems/rabbits-in-forest/description/
+
+my solution (beats 97.04%)
+class Solution:
+    def numRabbits(self, answers):
+        """
+        :type answers: List[int]
+        :rtype: int
+        """
+        colors = [0] * 1000  #colors[k] - how much rabbits said that there are k rabbits the same color
+        for answer in answers:
+            colors[answer] += 1
+
+        result = 0
+
+        for i in range(1000):
+            if colors[i] != 0:
+                i_th_colors = colors[i] / (i + 1)
+                fractional = i_th_colors % 1
+                if fractional > 0:
+                    i_th_colors = int(i_th_colors) + 1
+                else:
+                    i_th_colors = int(i_th_colors)
+
+                result += i_th_colors * (i + 1)
+
+        return result
+
+the fastest solution (not mine, unfortunately):
+class Solution:
+    def numRabbits(self, answers):
+        cnts = collections.Counter(answers)
+        return sum(-v % (k+1) + v for k, v in cnts.items())
+        
+it use that module:
+https://docs.python.org/3/library/collections.html
