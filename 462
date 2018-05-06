@@ -1,0 +1,32 @@
+https://leetcode.com/problems/minimum-moves-to-equal-array-elements-ii/description/
+
+my sol (48 ms):
+
+from statistics import median
+class Solution:
+    def minMoves2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+
+
+        mediana = median(nums)
+        result = 0
+        for num in nums:
+            result += abs(mediana - num)
+
+        return int(result)
+I don`t know why it faster, it has O(n log n) times, my should be O(n) (mediana should work for O(n) time, maybe trouble here?)
+Or maybe here just some special test
+best sol (44ms):
+class Solution:
+    def minMoves2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        aa = sorted(nums)
+        median = aa[len(nums)//2]        
+       
+        return sum([abs(i-median) for i in aa])  
