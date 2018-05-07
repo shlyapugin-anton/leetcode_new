@@ -42,3 +42,6 @@ class Solution(object):
 
         if N > 1: ans *= 2
         return ans
+
+also I started topic on leetcode about my solution:
+https://leetcode.com/problems/consecutive-numbers-sum/discuss/129347/python-another-version-also-O(n-**-0.5)
