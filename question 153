@@ -1,0 +1,28 @@
+https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/1
+
+class Solution:
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+
+        start = 0
+        finish = len(nums) - 1
+        now = start
+       
+        while finish - start > 1:
+            if nums[now] <= nums[start]:
+                finish = now
+                now = int((start + finish) / 2)
+
+            else:
+                start = now
+                now = int((start + finish) / 2)
+
+        return min(nums[start], nums[finish])
+        
+some advice: use self.findMin against while above
+also here you have O(log n), but that not fastest algorithm, better use here 2 part:
+1st part for len <=3
+second part to check nums[now] via nums[now - 1], nums[now + 1]
