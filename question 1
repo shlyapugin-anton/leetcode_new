@@ -1,0 +1,30 @@
+https://leetcode.com/problems/two-sum/description/
+
+beats 97.41%
+dictionary - it`s a hash table
+when you write smth like 
+
+if d in dict
+
+you re asking is there key d in dict? And dat operation costs O(1) on time
+for example d = {1: 17, 2: 24, 3: 40}
+1, 2 and 3 in dict
+
+code
+
+class Solution:
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+
+        table = {}
+
+        for i in range(len(nums)):
+            table[target - nums[i]] = i
+
+        for j in range(len(nums)):
+            if nums[j] in table and j != table[nums[j]]:
+                return [j, table[nums[j]]]
