@@ -28,3 +28,14 @@ class Solution:
         for j in range(len(nums)):
             if nums[j] in table and j != table[nums[j]]:
                 return [j, table[nums[j]]]
+
+more elegant (and 4ms faster):
+class Solution:
+    def twoSum(self, nums, target):
+        tmp = {}
+        for i in range(len(nums)):
+            if target - nums[i] in tmp:
+                return(tmp[target - nums[i]], i)
+            else:
+                tmp[nums[i]] = i;
+it`s not my code. Here author creating tmp in first loop
