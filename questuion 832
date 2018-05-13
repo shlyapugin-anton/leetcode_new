@@ -1,0 +1,11 @@
+https://leetcode.com/problems/flipping-an-image/description/
+
+T = [[1,1,0],[1,0,1],[0,0,0]]
+for j in range(len(T)):
+
+    T[j] = T[j][::-1]
+    for i in range(len(T[j])):
+        T[j][i] = (1 - T[j][i]) * 1
+
+print(T)
+
