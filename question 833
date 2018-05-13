@@ -1,0 +1,29 @@
+https://leetcode.com/problems/find-and-replace-in-string/description/
+
+S = str(input())
+
+indexes = list(map(int, input().split()))
+sources = list(map(str, input().split()))
+targets = list(map(str, input().split()))
+
+result = S
+
+
+for j in range(len(indexes)):
+    i = max(indexes)
+    k = indexes.index(i)
+
+    indexes[k] = -1
+
+
+    word = sources[k]
+
+    if S[i: i + len(word)] == word:
+
+        result = result[:i] + result[i:].replace(word, targets[k], 1)
+
+
+
+print(result)
+
+I used here indexes[k] = -1 against remove because I needed correct index in other lists
