@@ -1,0 +1,44 @@
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+class Solution:
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+
+        if root != None:
+            b = [root.val]
+
+            if root.left != None:
+                a = self.inorderTraversal(root.left)
+                a.extend(b)
+                if root.right != None:
+                    a.extend(self.inorderTraversal(root.right))
+                return a
+            else:
+                if root.right != None:
+                    b.extend(self.inorderTraversal(root.right))
+                return b
+            self.inorderTraversal(root.right)
+
+        else:
+            return []
+
+
+
+
+
+Tree = TreeNode(1)
+Tree.right = TreeNode(2)
+Tree.right.left = TreeNode(3)
+
+T = Solution()
+print(T.inorderTraversal(Tree))
+
+
