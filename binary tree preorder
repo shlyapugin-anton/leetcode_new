@@ -1,0 +1,32 @@
+recurcsive:
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+
+        if root != None:
+            b = [root.val]
+
+            if root.left != None and root.right != None:
+                b.extend(self.preorderTraversal(root.left)) 
+                b.extend(self.preorderTraversal(root.right))
+                return b
+            elif root.left != None:
+                b.extend(self.preorderTraversal(root.left))
+                return b
+            elif root.right != None:
+                b.extend(self.preorderTraversal(root.right))
+                return b
+            else:
+                return [root.val]
+        else:
+            return []
