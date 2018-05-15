@@ -42,3 +42,42 @@ T = Solution()
 print(T.inorderTraversal(Tree))
 
 
+####trying to rewrite iteratively (it has some mistake for now)
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        result, stack = [], []
+        if root != None:
+            stack.append(root)
+            while root.left:
+                root = root.left
+                stack.append(root)
+            root = stack.pop()
+            result.append(root.val)
+            if stack != []:
+                while not root.right:
+                    root = stack.pop()
+                    result.append(root.val)
+                root = root.right
+            if not root.left and not root.right:
+                return result
+
+
+
+
+
+Tree = TreeNode(1)
+Tree.right = TreeNode(2)
+Tree.left = TreeNode(3)
+
+T = Solution()
+print(T.inorderTraversal(Tree))
