@@ -1,0 +1,47 @@
+simple recursive 44ms (and without using queue)
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        treeList, result = [], []
+        while True:
+            if not root:
+                return []
+
+            else:
+                if treeList != []:
+                    new_lvl, new_result = [], []
+                    for tree in treeList[-1]:
+                        if tree.left:
+                            new_lvl.append(tree.left)
+                            new_result.append(tree.left.val)
+
+                        if tree.right:
+                            new_lvl.append(tree.right)
+                            new_result.append(tree.right.val)
+
+                    treeList.append(new_lvl)
+                    result.append(new_result)
+
+                else:
+                    result = [[root.val]]
+                    treeList = [[root]]
+
+                if result[-1] == []:
+                    return result[: -1]
+
+Tree = TreeNode(1)
+Tree.right = TreeNode(2)
+Tree.left = TreeNode(3)
+
+T = Solution()
+print(T.levelOrder(Tree))
