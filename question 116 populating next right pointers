@@ -1,0 +1,24 @@
+my simple recursive (bad VERY bad time solution):
+class Solution:
+    # @param root, a tree link node
+    # @return nothing
+    def connect(self, root):
+        if root:
+            if root.left and root.right:
+                self.dfs(root.left, root.right)
+
+    def dfs(self, p, q):
+        p.next = q
+        if p.left:
+            self.dfs(p.left, p.right)
+            self.dfs(p.right, q.left)
+            self.dfs(q.left, q.right)
+
+Tree = TreeLinkNode(1)
+Tree.left = TreeLinkNode(2)
+Tree.right = TreeLinkNode(3)
+
+T = Solution()
+T.connect(Tree)
+print(Tree.left.next.val)
+
