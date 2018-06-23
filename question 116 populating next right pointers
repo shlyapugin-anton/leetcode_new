@@ -22,3 +22,32 @@ T = Solution()
 T.connect(Tree)
 print(Tree.left.next.val)
 
+the best solution here (look at loop! Brilliant use of "next"!!!)
+
+sample 71 ms submission
+# Definition for binary tree with next pointer.
+# class TreeLinkNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+#         self.next = None
+
+class Solution:
+    # @param root, a tree link node
+    # @return nothing
+    def connect(self, root):
+        if not root:
+            return root
+        root.next = None
+        leftmost = root
+        while leftmost.left:
+            cur = leftmost
+            leftmost = cur.left
+            while cur:
+                cur.left.next = cur.right
+                if cur.next:
+                    cur.right.next = cur.next.left
+                else:
+                    cur.right.next = None
+                cur = cur.next
