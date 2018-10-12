@@ -1,0 +1,97 @@
+# 3
+# my not optimal solution:
+# class Solution:
+#     def lengthOfLongestSubstring(self, s):
+#         """
+#         :type s: str
+#         :rtype: int
+#         """
+#         result = 0
+#         dict_of_str = {}
+#         maximum = 0
+#         while s:
+#             i = 0
+#             if len(s) < maximum:
+#                 return maximum
+#             while i < len(s):
+#                 letter = s[i]
+#                 if letter in dict_of_str:
+#                     i = 0
+#                     s = s[1:]
+#                     if result > maximum:
+#                         maximum = result
+#                     result = 0
+#                     dict_of_str = {}
+#                 else:
+#                     dict_of_str[letter] = result + 1
+#                     result += 1
+#                     i += 1
+#         return maximum
+
+# result = 0
+# s = str(input())
+# dict_of_str = {}
+# maximum = 0
+# i = 0
+# while s:
+#     i = 0
+#     while i < len(s):
+#         letter = s[i]
+#         if letter in dict_of_str:
+#             i = 0
+#             s = s[1:]
+#             if result > maximum:
+#                 maximum = result
+#             result = 0
+#             dict_of_str = {}
+#         else:
+#             dict_of_str[letter] = result + 1
+#             result += 1
+#             i += 1
+# print(maximum)
+
+# another 3, a little faster, but still beats only ~21%
+# class Solution:
+#     def lengthOfLongestSubstring(self, s):
+#         """
+#         :type s: str
+#         :rtype: int
+#         """
+#         start = 0
+#         dict_of_letters = {}
+#         i = 0
+#         maximum = 0
+#         result = 0
+#         while i < len(s):
+#             if s[i] not in dict_of_letters:
+#                 dict_of_letters[s[i]] = i
+#                 result += 1
+#             else:
+#                 if result > maximum:
+#                     maximum = result
+#                 start = dict_of_letters[s[i]] + 1
+#                 dict_of_letters[s[i]] = i
+#                 dict_of_letters = {k: v for k, v in dict_of_letters.items() if v >= start}
+#                 result = i - start + 1
+#             i += 1
+#         return max(result, maximum)
+
+s = str(input())
+start = 0
+dict_of_letters = {}
+i = 0
+maximum = 0
+result = 0
+while i < len(s):
+    if s[i] not in dict_of_letters:
+        dict_of_letters[s[i]] = i
+        result += 1
+    else:
+        if result > maximum:
+            maximum = result
+        start = dict_of_letters[s[i]] + 1
+        dict_of_letters[s[i]] = i
+        dict_of_letters = {k: v for k, v in dict_of_letters.items() if v >= start}
+        result = i - start + 1
+    i += 1
+print(max(result, maximum))
