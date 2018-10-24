@@ -1,0 +1,28 @@
+https://leetcode.com/problems/binary-search/description/
+
+my sol (beats ~71% and recursive!)
+class Solution:
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        if len(nums) == 0:
+            return -1
+        else:
+            tmp = len(nums) // 2
+            if target > nums[tmp]:
+                val = self.search(nums[tmp + 1:], target)
+                if val != -1:
+                    return val + tmp + 1
+                else:
+                    return -1
+            elif target < nums[tmp]:
+                val = self.search(nums[:tmp], target)
+                if val != -1:
+                    return val
+                else:
+                    return -1
+            else:
+                return tmp
