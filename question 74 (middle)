@@ -1,0 +1,43 @@
+https://leetcode.com/problems/search-a-2d-matrix/description/
+beats ~40%, but a little slower (about 10%) then fastest solution
+in fastest solution you should use modular arithmetics for fast finding rows and columns
+my sol:
+
+class Solution:
+    def findRow(self, matrix, target, up, down):
+        if up < down:
+            middle = (up + down) // 2
+            if target > matrix[middle][len(matrix[0]) - 1]:
+                return self.findRow(matrix, target, middle + 1, down)
+            elif target < matrix[middle][len(matrix[0]) - 1]:
+                return self.findRow(matrix, target, up, middle)
+            else:
+                return matrix[middle]
+        else:
+            return matrix[up]
+
+    def findTarget(self, row, target, left, right):
+        if left >= right and target != row[left]:
+            return False
+        else:
+            middle = (left + right) // 2
+            if target < row[middle]:
+                return self.findTarget(row, target, left, middle)
+            elif target > row[middle]:
+                return self.findTarget(row, target, middle + 1, right)
+            else:
+                return True
+
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        if len(matrix) == 0:
+            return False
+        else:
+            if len(matrix[0]) != 0:
+                return self.findTarget(self.findRow(matrix, target, 0, len(matrix) - 1), target, 0, len(matrix[0]) - 1)
+            else:
+                return False
