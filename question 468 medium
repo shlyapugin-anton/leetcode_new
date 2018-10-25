@@ -1,0 +1,45 @@
+# beats 100%
+class Solution:
+    def validIPAddress(self, IP):
+        """
+        :type IP: str
+        :rtype: str
+        """
+        #checking IPv4
+        if '.' in IP:
+            listaddress = IP.split('.')
+            if len(listaddress) != 4:
+                return 'Neither'
+            for address in listaddress:
+                if not address.isdigit():
+                    return 'Neither'
+                else:
+                    num = int(address)
+                    if num == 0 and len(address) > 1:
+                        return 'Neither'
+                    if num > 255:
+                        return 'Neither'
+                    if len(address) > 1 and address[0] == '0':
+                        return 'Neither'
+
+            return 'IPv4'
+
+        #checking IPv6
+        elif ':' in IP:
+            listaddress = IP.split(':')
+            if len(listaddress) != 8:
+                return 'Neither'
+            for address in listaddress:
+                address = address.lower()
+                num = address.replace('a', '1')
+                num = num.replace('b', '1')
+                num = num.replace('c', '1')
+                num = num.replace('d', '1')
+                num = num.replace('e', '1')
+                num = num.replace('f', '1')
+                if len(num) > 4 or not num.isdigit():
+                    return 'Neither'
+            return 'IPv6'
+
+        else:
+            return "Neither"
