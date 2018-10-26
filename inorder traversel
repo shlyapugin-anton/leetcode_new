@@ -71,3 +71,29 @@ class Solution:
 
         else:
             return []
+
+UPD (my recursive code, x2 faster, beats ~99%)
+class Solution:
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if not root:
+            return []
+        else:
+            if root.left and root.right:
+                t = self.inorderTraversal(root.left)
+                t += [root.val]
+                t += self.inorderTraversal(root.right)
+                return t
+            elif root.left:
+                t = self.inorderTraversal(root.left)
+                t += [root.val]
+                return t
+            elif root.right:
+                t = [root.val]
+                t += self.inorderTraversal(root.right)
+                return t
+            else:
+                return [root.val]
