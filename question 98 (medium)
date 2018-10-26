@@ -1,0 +1,39 @@
+my non optimal solution:
+class Solution:
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if not root:
+            return []
+        else:
+            if root.left and root.right:
+                t = self.inorderTraversal(root.left)
+                t += [root.val]
+                t += self.inorderTraversal(root.right)
+                return t
+            elif root.left:
+                t = self.inorderTraversal(root.left)
+                t += [root.val]
+                return t
+            elif root.right:
+                t = [root.val]
+                t += self.inorderTraversal(root.right)
+                return t
+            else:
+                return [root.val]
+
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        tList = self.inorderTraversal(root)
+        if len(tList) <= 1:
+            return True
+        for i in range(len(tList) - 1):
+            if tList[i] >= tList[i + 1]:
+                return False
+
+        return True
