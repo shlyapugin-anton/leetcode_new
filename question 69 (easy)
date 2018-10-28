@@ -1,0 +1,27 @@
+class Solution(object):
+    # def mySqrt_2(self, x, min):
+    #     """
+    #     :type x: int
+    #     :rtype: int
+    #     """
+    #     i_min = int(min)
+    #     if i_min ** 2 <= x and (i_min + 1) ** 2 > x:
+    #         return i_min
+    #     elif i_min ** 2 > x:
+    #         return self.mySqrt_2(x, min / 2)
+    #     else:
+    #         return self.mySqrt_2(x, (3 * min) / 2)
+    #
+    # def mySqrt(self, x):
+    #     return self.mySqrt_2(x, x)
+    def mySqrt(self, x):
+        return self.mySqrt2(x, 1, x)
+
+    def mySqrt2(self, x, left, right):
+        mid = (left + right) // 2
+        if mid ** 2 <= x and (mid + 1) ** 2 > x:
+            return mid
+        elif mid ** 2 > x:
+            return self.mySqrt2(x, left, mid)
+        else:
+            return self.mySqrt2(x, mid, right)
