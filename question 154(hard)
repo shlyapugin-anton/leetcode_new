@@ -1,0 +1,25 @@
+# its only beat 18.54%, it`s binary search, but maybe the problem in part where you use min
+# the fastest solution is binary search, but some faster solution is not binary, maybe because of test case
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) == 0:
+            return -1
+        return self.find_min(nums, 0, len(nums) - 1)
+
+    def find_min(self, nums, left, right):
+        mid = (left + right) // 2
+        if left == right:
+            return nums[left]
+        if nums[left] >= nums[right]:
+            if nums[mid] == nums[left] and nums[mid] == nums[right]:
+                return min(self.find_min(nums, left, mid), self.find_min(nums, mid + 1, right))
+            if nums[left] > nums[mid]:
+                return self.find_min(nums, left + 1, mid)
+            else:
+                return self.find_min(nums, mid + 1, right)
+        else:
+            return nums[left]
